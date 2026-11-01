@@ -4,6 +4,14 @@ from file_scanner import FileScanner
 from file_categorizer import FileCategorizer
 from action_planner import ActionPlanner
 from file_organizer import FileOrganizer
+import logging
+
+logging.basicConfig(
+    filename="flowpilot.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logging.info("FlowPilot started")
 
 scanner = FileScanner(r"D:\VS Code\Python\GitProject\FlowPilot\sample_files")
 files = scanner.scan()
