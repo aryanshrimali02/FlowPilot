@@ -15,6 +15,7 @@ print("FlowPilot - File Scan Results")
 print("-"*30)
 for filename, category in results:
     print(f"{filename.name} --> {category}")
+print()
 
 print("FlowPilot - Organization Preview")
 print("-"*35)
@@ -24,10 +25,16 @@ for original_path, destination_path in action_plan:
     print(f"{original_path.name} --> {destination_path}")
 print()
 
-selection = input("Do you want to organize these files? (y/n): ")
+selection = input("Do you want to organize these files? (y/n): ").strip().lower()
 if selection == "y":
     organizer = FileOrganizer(action_plan)
-    organized = organizer.organize()
+    summary = organizer.organize()
+    print("Organization process completed.")
+    print("Organization Summary".center(30,"="))
+    print(f"Files moved: {summary['moved']}")
+    print(f"Files skipped: {summary['skipped']}")
+    print(f"Files failed: {summary['failed']}")
+    print("="*30)
 elif selection == "n":
     print("Operation cancelled. No files were moved.")
 else:
