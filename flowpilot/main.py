@@ -4,6 +4,8 @@ from file_scanner import FileScanner
 from file_categorizer import FileCategorizer
 from action_planner import ActionPlanner
 from file_organizer import FileOrganizer
+from duplicate_detector import DuplicateDetector
+from pathlib import Path
 import logging
 
 logging.basicConfig(
@@ -24,6 +26,20 @@ print("-"*30)
 for filename, category in results:
     print(f"{filename.name} --> {category}")
 print()
+
+print("Duplicate files".center(30,"="))
+detector = DuplicateDetector(files)
+duplicates = detector.find_duplicates()
+if duplicates:
+    for index, (key, value_list) in enumerate(duplicates.items(), start=1):
+        print(f"Group {index}:")
+        for value in value_list:
+            print(" ",Path(value).name)
+        print()
+else:
+    print("No duplicate files found.")
+print("="*30)
+
 
 print("FlowPilot - Organization Preview")
 print("-"*35)
